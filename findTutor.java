@@ -2,12 +2,13 @@ import javax.swing.*;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.util.HashMap;
+import java.sql.*;
 
 public class findTutor extends JFrame
 {
     private String subject;
 
-    findTutor(HashMap<String, Double> map) {
+    findTutor() {
         Color background = new Color(43,45,47);
         Color foreground = new Color(255,191,0);
 
@@ -61,22 +62,62 @@ public class findTutor extends JFrame
         add(filler, "West");
         add(buttonPanel, "South", SwingUtilities.CENTER);
         setSize(500,500);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setBackground(background);
         setVisible(true);
     }
 
-    private static HashMap<String, Double> getData(String subject) {
+    private static HashMap<String, Double> getData(String sub) {
         HashMap<String, Double> ratings = new HashMap<>();
-        ratings.put("A", 2.5);
-        ratings.put("B", 4.3);
-        ratings.put("C", 1.7);
-        ratings.put("D", 5.0);
-        ratings.put("E", 3.8);
+
+        final String DB_URL = "jdbc:mysql://localhost:3306/project?useSSL=false";
+
+        final String USER = "dev";
+        final String PASS = "";
+
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try{
+            //STEP 3: Open a connection
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+            //STEP 4: Execute a query
+            stmt = conn.createStatement();
+            String query = String.format("select name, avg_rating, subject from findtutor where subject = '%s'", sub);
+            rs = stmt.executeQuery(query);
+            //STEP 5: Process the results
+            while(rs.next()){
+                ratings.put(rs.getString("name"), rs.getDouble("avg_rating"));
+            }
+        } catch(Exception e){
+            //Handle errors for Class.forName
+            e.printStackTrace();
+        }finally{
+            //finally block used to close resources
+            try{
+                if (rs!=null)
+                    rs.close();
+            }catch (SQLException e){
+                e.printStackTrace();
+            }
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            }catch(SQLException se2){}// nothing we can do
+            try{
+                if(conn!=null)
+                    conn.close();
+            }catch(SQLException se){
+                se.printStackTrace();
+            }//end finally try
+        }//end try
+        System.out.println("Goodbye!");
+
         return ratings;
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new findTutor(null));
+        SwingUtilities.invokeLater(findTutor::new);
     }
 }

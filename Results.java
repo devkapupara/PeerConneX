@@ -16,6 +16,7 @@ public class Results extends JPanel
         label.setForeground(foreground);
         String[] headers = {"Name", "Rating"};
         JTable table = new JTable(ratings.size(), 2);
+        table.setRowHeight(30);
         table.setForeground(foreground);
         table.setBackground(background);
         JTableHeader jth = table.getTableHeader();
