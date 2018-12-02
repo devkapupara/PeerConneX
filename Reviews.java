@@ -6,7 +6,6 @@ import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import java.util.*;
-import java.util.HashMap;
 import java.sql.*;
 
 public class Reviews extends JFrame {
@@ -17,7 +16,7 @@ public class Reviews extends JFrame {
         Color background = new Color(43, 45, 47);
         Color foreground = new Color(255, 191, 0);
 
-        JLabel label = new JLabel("Find PeerConneX.Reviews for Tutor", SwingConstants.CENTER);
+        JLabel label = new JLabel("Find Reviews for Tutor", SwingConstants.CENTER);
         label.setFont(label.getFont().deriveFont(50f));
         label.setForeground(foreground);
         JLabel searchID = new JLabel("Enter Tutor ID: ");
@@ -32,10 +31,10 @@ public class Reviews extends JFrame {
         gc.gridx = 0;
         gc.gridy = 0;
         center.add(searchID);
-        gc.gridx = 1;
+        gc.gridx = 0;
         gc.weightx = 1;
         center.add(entry);
-        JButton showReviewsButton = new JButton("Show PeerConneX.Reviews");
+        JButton showReviewsButton = new JButton("Show Reviews");
         JPanel buttonPanel = new JPanel();
         buttonPanel.setSize(100, showReviewsButton.getHeight());
         buttonPanel.setBackground(background);
@@ -47,7 +46,7 @@ public class Reviews extends JFrame {
         showReviewsButton.setSize(300, 50);
         showReviewsButton.addActionListener(e -> {
             tID = Integer.valueOf(entry.getText());
-            HashMap<Integer, String> reviews = getData(tID);
+            ArrayList<String> reviews = getData(tID);
             remove(center);
             remove(buttonPanel);
             add(new SearchResults(reviews), "Center");
@@ -57,7 +56,7 @@ public class Reviews extends JFrame {
 
         JPanel filler = new JPanel();
         filler.setBackground(background);
-        setTitle("PeerConneX.Reviews");
+        setTitle("Reviews");
         setLayout(new BorderLayout(5,5));
         add(center, "Center");
         add(label, "North");
@@ -72,27 +71,28 @@ public class Reviews extends JFrame {
     }
 
     private class SearchResults extends JPanel {
-        SearchResults(HashMap<Integer, String> reviews) {
+        SearchResults(ArrayList<String> reviews) {
             Color background = new Color(43,45,47);
             Color foreground = new Color(255,191,0);
-            String resultsLabel = "PeerConneX.Reviews for " + tID + ":";
+            String resultsLabel = "Reviews for " + tID + ":";
             JLabel label = new JLabel(resultsLabel, SwingConstants.CENTER);
             label.setFont(label.getFont().deriveFont(35f));
             label.setForeground(foreground);
             JTable table = new JTable(reviews.size(), 1);
+            table.setRowHeight(30);
             table.setForeground(foreground);
             table.setBackground(background);
 
             JTableHeader jth = table.getTableHeader();
             jth.setBackground(background);
-            jth.setForeground(foreground);
+            jth.setForeground(background);
 
             table.setFillsViewportHeight(true);
             DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
             renderer.setHorizontalAlignment(SwingConstants.CENTER);
             int row = 0;
-            for (int id : reviews.keySet()) {
-                table.setValueAt(reviews.get(id), row, 0);
+            for (String s : reviews) {
+                table.setValueAt(s, row, 0);
                 row++;
             }
             JPanel east = new JPanel();
@@ -112,12 +112,10 @@ public class Reviews extends JFrame {
             setBackground(background);
             setVisible(true);
         }
-
-
     }
 
-    private static HashMap<Integer, String> getData(int id) {
-        LinkedHashMap<Integer, String> reviews = new HashMap<>();
+    private static ArrayList<String> getData(int id) {
+        ArrayList<String> reviews = new ArrayList<String>();
 
         final String DB_URL = "jdbc:mysql://localhost:3306/DBProject?useSSL=false";
 
@@ -138,11 +136,10 @@ public class Reviews extends JFrame {
             //STEP 5: Process the results
             while(rs.next()){
                 String review = "On " + rs.getString(2) + ", student " + rs.getInt(1) + " wrote: " + rs.getString(4) + " Rated " + rs.getInt(3) + "/5.";
-                reviews.put(rs.getInt(1), review);
+                reviews.add(review);
             }
-            for (int tutee_id : reviews.keySet()) {
-                String comments = reviews.get(tutee_id);
-                System.out.println(comments);
+            for (String s : reviews) {
+                System.out.println(s);
             }
 
         } catch(Exception e){
