@@ -46,7 +46,8 @@ public class findTutor extends JFrame
             HashMap<String, Double> ratings = getData(subject);
             remove(center);
             remove(buttonPanel);
-            add(new Results(ratings), "Center");
+            String[] headers = {"Name", "Rating"};
+            add(new Results(ratings, headers), "Center");
             repaint();
             validate();
         });
@@ -71,9 +72,10 @@ public class findTutor extends JFrame
     private static HashMap<String, Double> getData(String sub) {
         HashMap<String, Double> ratings = new HashMap<>();
 
-        final String DB_URL = "jdbc:mysql://localhost:3306/project?useSSL=false";
-
-        final String USER = "dev";
+        //final String DB_URL = "jdbc:mysql://localhost:3306/project?useSSL=false";
+	    final String DB_URL = "jdbc:mysql://localhost:3306/peerconnectionproject";
+        
+        final String USER = "root";
         final String PASS = "";
 
         Connection conn = null;
@@ -85,7 +87,7 @@ public class findTutor extends JFrame
 
             //STEP 4: Execute a query
             stmt = conn.createStatement();
-            String query = String.format("select name, avg_rating, subject from findtutor where subject = '%s'", sub);
+            String query = String.format("select name, avg_rating from findtutor where subject = '%s'", sub);
             rs = stmt.executeQuery(query);
             //STEP 5: Process the results
             while(rs.next()){
@@ -113,7 +115,6 @@ public class findTutor extends JFrame
                 se.printStackTrace();
             }//end finally try
         }//end try
-        System.out.println("Goodbye!");
 
         return ratings;
     }

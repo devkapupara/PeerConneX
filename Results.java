@@ -7,14 +7,13 @@ import java.util.HashMap;
 
 public class Results extends JPanel
 {
-    Results(HashMap<String, Double> ratings)
+    Results(HashMap<String, Double> ratings, String headers[])
     {
         Color background = new Color(43,45,47);
         Color foreground = new Color(255,191,0);
         JLabel label = new JLabel("Results", SwingConstants.CENTER);
         label.setFont(label.getFont().deriveFont(35f));
         label.setForeground(foreground);
-        String[] headers = {"Name", "Rating"};
         JTable table = new JTable(ratings.size(), 2);
         table.setRowHeight(30);
         table.setForeground(foreground);

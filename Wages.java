@@ -17,13 +17,10 @@ public class Wages extends JFrame
         setForeground(foreground);
         
 		JTextField title = new JTextField("WAGES");
-		title.setFont(new Font("Arial", Font.PLAIN, 50));
-		title.setBackground(background);
-		title.setForeground(foreground);
-		title.setHorizontalAlignment(JTextField.CENTER);
         
         HashMap<String, Double> theWages = getData();
-        add(new Results(theWages), "Center");
+        String[] headers = {"Name", "Wages"};
+        add(new Results(theWages, headers), "Center");
 
 		add(title);
         setSize(500,500);
@@ -37,9 +34,10 @@ public class Wages extends JFrame
 	private static HashMap<String, Double> getData() 
 	{
 	    HashMap<String, Double> theWages = new HashMap<>();
-	    final String DB_URL = "jdbc:mysql://localhost:3306/project?useSSL=false";
-
-	    final String USER = "otherme";
+	    //final String DB_URL = "jdbc:mysql://localhost:3306/project?useSSL=false";
+	    
+	    final String DB_URL = "jdbc:mysql://localhost:3306/peerconnectionproject";
+	    final String USER = "root";
 	    
 	    final String PASS = "";
 
@@ -101,7 +99,6 @@ public class Wages extends JFrame
 	            se.printStackTrace();
 	        }//end finally try
 	    }//end try
-	    System.out.println("Goodbye!");
 	    return theWages;
 	}
 }
