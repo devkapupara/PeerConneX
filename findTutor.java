@@ -7,7 +7,7 @@ public class findTutor extends JFrame
 {
     private String subject;
 
-    findTutor(HashMap<String, Double> map) {
+    findTutor() {
         Color background = new Color(43,45,47);
         Color foreground = new Color(255,191,0);
 
@@ -61,8 +61,9 @@ public class findTutor extends JFrame
         add(filler, "West");
         add(buttonPanel, "South", SwingUtilities.CENTER);
         setSize(500,500);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setBackground(background);
+		setLocation(900, 200);
         setVisible(true);
     }
 
@@ -77,6 +78,6 @@ public class findTutor extends JFrame
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new findTutor(null));
+        SwingUtilities.invokeLater(() -> new findTutor());
     }
 }

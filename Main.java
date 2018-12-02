@@ -18,11 +18,6 @@ public class Main
 		frame.setLocation(680, 100);
 		Font title = new Font("Arial", Font.PLAIN, 50);
 		Font buttonFont = new Font("Arial", Font.PLAIN, 35);
-		
-		JFrame frame2 = new JFrame();	
-		frame2.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
-		frame2.setLocation(850, 160);
-		frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JPanel buttons = new JPanel();
 		buttons.setBackground(background);
@@ -42,6 +37,13 @@ public class Main
 		findTutor.setBackground(background);
 		findTutor.setForeground(foreground);
 		findTutor.setFont(buttonFont);
+		findTutor.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				new findTutor();
+			}
+		});
 		Button contact = new Button("Search Contact Info");
 		contact.setBackground(background);
 		contact.setForeground(foreground);
@@ -54,18 +56,7 @@ public class Main
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				Panel wagePanel = new Panel();
-				wagePanel.setLayout(new BorderLayout());
-				
-				JTextField wage = new JTextField("WAGES");
-				wage.setFont(title);
-				wage.setBackground(background);
-				wage.setForeground(foreground);
-				wage.setHorizontalAlignment(JTextField.CENTER);
-				
-				wagePanel.add(wage, BorderLayout.NORTH);
-				frame2.add(wagePanel);
-				frame2.setVisible(true);
+				new Wages();
 			}
 		});
 		Button review = new Button("Reviews");
@@ -92,7 +83,6 @@ public class Main
 			}
 		});
 		
-		//buttons.add(menu);
 		buttons.add(appointment);
 		buttons.add(findTutor);
 		buttons.add(contact);
