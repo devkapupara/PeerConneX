@@ -16,7 +16,7 @@ public class Main
 		int DEFAULT_HEIGHT = 800;
 		frame.setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		frame.setLocation(680, 100);
-		Font title = new Font("Arial", Font.PLAIN, 50);
+		Font title = new Font("Arial", Font.BOLD, 50);
 		Font buttonFont = new Font("Arial", Font.PLAIN, 35);
 
 		JPanel buttons = new JPanel();

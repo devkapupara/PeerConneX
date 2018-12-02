@@ -1,9 +1,12 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.HashMap;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import java.sql.*;
 
@@ -15,17 +18,23 @@ public class Wages extends JFrame
         Color foreground = new Color(255,191,0);
         setBackground(background);
         setForeground(foreground);
+                
+        JLabel label = new JLabel("Wages", SwingConstants.CENTER);
+        label.setForeground(foreground);
+        label.setBackground(background);
+        label.setFont(new Font("Arial", Font.BOLD, 50));
         
-		JTextField title = new JTextField("WAGES");
+        setTitle("Wages");
+        //setLayout(new BorderLayout(5,5));
+        add(label, "North");
         
         HashMap<String, Double> theWages = getData();
         String[] headers = {"Name", "Wages"};
         add(new Results(theWages, headers), "Center");
 
-		add(title);
-        setSize(500,500);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setBackground(background);
+        setSize(600,600);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocation(900, 200);
         setVisible(true);
         

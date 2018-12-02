@@ -14,13 +14,14 @@ public class findTutor extends JFrame
 
         String[] subjects = {"Math", "Computer Science", "Physics", "Chemistry", "Biology", "Business", "Graphic Design"};
         JComboBox<String> dropdown = new JComboBox<>(subjects);
+        dropdown.setFont(dropdown.getFont().deriveFont(30f));
 
         JLabel label = new JLabel("Find Tutor", SwingConstants.CENTER);
         label.setFont(label.getFont().deriveFont(50f));
         label.setForeground(foreground);
         JLabel searchLabel = new JLabel("Select subject: ");
         searchLabel.setForeground(foreground);
-        searchLabel.setFont(searchLabel.getFont().deriveFont(20f));
+        searchLabel.setFont(searchLabel.getFont().deriveFont(30f));
 
         JPanel center = new JPanel(new GridBagLayout());
         center.setBackground(background);
@@ -32,15 +33,14 @@ public class findTutor extends JFrame
         gc.weightx = 1;
         center.add(dropdown);
         JButton findButton = new JButton("  Find  ");
+        findButton.setFont(findButton.getFont().deriveFont(30f));
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setSize(100, findButton.getHeight());
+        findButton.setPreferredSize(new Dimension(100, 50));
         buttonPanel.setBackground(background);
         buttonPanel.add(findButton);
         findButton.setForeground(foreground);
-        findButton.setFont(findButton.getFont().deriveFont(20f));
         findButton.setBackground(background);
         findButton.setBorder(new MatteBorder(1,1,1,1, foreground));
-        findButton.setSize(300,50);
         findButton.addActionListener(e -> {
             subject = (String)dropdown.getSelectedItem();
             HashMap<String, Double> ratings = getData(subject);
@@ -62,7 +62,7 @@ public class findTutor extends JFrame
         add(filler, "East");
         add(filler, "West");
         add(buttonPanel, "South", SwingUtilities.CENTER);
-        setSize(500,500);
+        setSize(600,600);
 		setLocation(900, 200);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setBackground(background);

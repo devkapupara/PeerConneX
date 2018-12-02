@@ -53,7 +53,8 @@ public class Results extends JPanel
         add(east, "East");
         add(west, "West");
         add(south, "South");
-        setSize(500,500);
+        table.setDefaultEditor(Object.class, null);
+        setSize(600,600);
         setBackground(background);
         setVisible(true);
     }
