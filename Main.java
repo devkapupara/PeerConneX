@@ -63,6 +63,13 @@ public class Main
 		review.setBackground(background);
 		review.setForeground(foreground);
 		review.setFont(buttonFont);
+		review.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				new Reviews();
+			}
+		});
 		Button checkAppointments = new Button("Check Appointments");
 		checkAppointments.setBackground(background);
 		checkAppointments.setForeground(foreground);

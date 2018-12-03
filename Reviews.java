@@ -1,5 +1,3 @@
-package PeerConneX;
-
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
@@ -21,9 +19,12 @@ public class Reviews extends JFrame {
         label.setForeground(foreground);
         JLabel searchID = new JLabel("Enter Tutor ID: ");
         searchID.setForeground(foreground);
-        searchID.setFont(searchID.getFont().deriveFont(20f));
+        searchID.setFont(searchID.getFont().deriveFont(30f));
         JTextField entry = new JTextField();
         entry.setColumns(20);
+        entry.setMinimumSize(new Dimension(250, 50));
+        entry.setMaximumSize(new Dimension(250, 50));
+        entry.setFont(new Font("Arial", Font.PLAIN, 30));
 
         JPanel center = new JPanel(new GridBagLayout());
         center.setBackground(background);
@@ -35,15 +36,14 @@ public class Reviews extends JFrame {
         gc.weightx = 1;
         center.add(entry);
         JButton showReviewsButton = new JButton("Show Reviews");
+        showReviewsButton.setFont(showReviewsButton.getFont().deriveFont(30f));
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setSize(100, showReviewsButton.getHeight());
+        showReviewsButton.setPreferredSize(new Dimension(250, 50));
         buttonPanel.setBackground(background);
         buttonPanel.add(showReviewsButton);
         showReviewsButton.setForeground(foreground);
         showReviewsButton.setBackground(background);
-        showReviewsButton.setFont(showReviewsButton.getFont().deriveFont(20f));
         showReviewsButton.setBorder(new MatteBorder(1, 1, 1, 1, foreground));
-        showReviewsButton.setSize(300, 50);
         showReviewsButton.addActionListener(e -> {
             tID = Integer.valueOf(entry.getText());
             ArrayList<String> reviews = getData(tID);
@@ -63,7 +63,7 @@ public class Reviews extends JFrame {
         add(filler, "East");
         add(filler, "West");
         add(buttonPanel, "South", SwingUtilities.CENTER);
-        setSize(700,700);
+        setSize(600,600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setBackground(background);
         setLocation(900, 200);
@@ -88,6 +88,7 @@ public class Reviews extends JFrame {
             jth.setForeground(background);
 
             table.setFillsViewportHeight(true);
+            table.setDefaultEditor(Object.class, null);
             DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
             renderer.setHorizontalAlignment(SwingConstants.CENTER);
             int row = 0;
@@ -117,10 +118,12 @@ public class Reviews extends JFrame {
     private static ArrayList<String> getData(int id) {
         ArrayList<String> reviews = new ArrayList<String>();
 
-        final String DB_URL = "jdbc:mysql://localhost:3306/DBProject?useSSL=false";
+        //final String DB_URL = "jdbc:mysql://localhost:3306/DBProject?useSSL=false";
+        
+	    final String DB_URL = "jdbc:mysql://localhost:3306/peerconnectionproject";
 
         final String USER = "root";
-        final String PASS = "Brxvn0697!";
+        final String PASS = "";
 
         Connection conn = null;
         Statement stmt = null;
@@ -164,7 +167,6 @@ public class Reviews extends JFrame {
                 se.printStackTrace();
             }//end finally try
         }//end try
-        System.out.println("Goodbye!");
 
         return reviews;
     }
@@ -173,5 +175,3 @@ public class Reviews extends JFrame {
         SwingUtilities.invokeLater(() -> new Reviews());
     }
 }
-
-
