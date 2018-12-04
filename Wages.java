@@ -25,7 +25,6 @@ public class Wages extends JFrame
         label.setFont(new Font("Arial", Font.BOLD, 50));
         
         setTitle("Wages");
-        //setLayout(new BorderLayout(5,5));
         add(label, "North");
         
         HashMap<String, Double> theWages = getData();

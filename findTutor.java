@@ -17,7 +17,7 @@ public class findTutor extends JFrame
         dropdown.setFont(dropdown.getFont().deriveFont(30f));
 
         JLabel label = new JLabel("Find Tutor", SwingConstants.CENTER);
-        label.setFont(label.getFont().deriveFont(50f));
+        label.setFont(new Font("Arial", Font.BOLD, 50));
         label.setForeground(foreground);
         JLabel searchLabel = new JLabel("Select subject: ");
         searchLabel.setForeground(foreground);

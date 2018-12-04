@@ -48,6 +48,13 @@ public class Main
 		contact.setBackground(background);
 		contact.setForeground(foreground);
 		contact.setFont(buttonFont);
+		contact.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				new ContactInfo();
+			}
+		});
 		Button wages = new Button("Show Wages");
 		wages.setBackground(background);
 		wages.setForeground(foreground);

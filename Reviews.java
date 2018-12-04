@@ -15,7 +15,7 @@ public class Reviews extends JFrame {
         Color foreground = new Color(255, 191, 0);
 
         JLabel label = new JLabel("Find Reviews for Tutor", SwingConstants.CENTER);
-        label.setFont(label.getFont().deriveFont(50f));
+        label.setFont(new Font("Arial", Font.BOLD, 50));
         label.setForeground(foreground);
         JLabel searchID = new JLabel("Enter Tutor ID: ");
         searchID.setForeground(foreground);
