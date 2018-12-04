@@ -18,9 +18,10 @@ public class TutorSchedule extends JPanel
         label.setBackground(background);
         setBackground(background);
         add(label, "Center");
+        
         JButton back = new JButton("  Back  ");
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setPreferredSize(new Dimension(100, 50));
+        buttonPanel.setPreferredSize(new Dimension(100, 100));
         buttonPanel.setBackground(background);
         buttonPanel.add(back);
         back.setForeground(foreground);
@@ -28,9 +29,10 @@ public class TutorSchedule extends JPanel
         back.setBackground(background);
         back.setBorder(new MatteBorder(1,1,1,1, foreground));
         //back.setSize(300,50);
+        String[] headers = {"Name", "Rating"};
         back.addActionListener(e -> {
             removeAll();
-            add(new Results(oldData));
+            add(new Results(oldData, headers));
             repaint();
             revalidate();
         });
@@ -38,10 +40,11 @@ public class TutorSchedule extends JPanel
     }
     private static String getData(String name) {
 
-        final String DB_URL = "jdbc:mysql://localhost:3306/project?useSSL=false";
+        //final String DB_URL = "jdbc:mysql://localhost:3306/project?useSSL=false";
+	    final String DB_URL = "jdbc:mysql://localhost:3306/peerconnectionproject";
 
-        final String USER = "dev";
-        final String PASS = "dev2511996";
+        final String USER = "root";
+        final String PASS = "";
 
         Connection conn = null;
         Statement stmt = null;
@@ -93,7 +96,6 @@ public class TutorSchedule extends JPanel
                 se.printStackTrace();
             }//end finally try
         }//end try
-        System.out.println("Goodbye!");
 
         return sb.append("</html>").toString();
     }

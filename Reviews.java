@@ -38,6 +38,7 @@ public class Reviews extends JFrame {
         JButton showReviewsButton = new JButton("Show Reviews");
         showReviewsButton.setFont(showReviewsButton.getFont().deriveFont(30f));
         JPanel buttonPanel = new JPanel();
+        buttonPanel.setPreferredSize(new Dimension(100, 80));
         showReviewsButton.setPreferredSize(new Dimension(250, 50));
         buttonPanel.setBackground(background);
         buttonPanel.add(showReviewsButton);

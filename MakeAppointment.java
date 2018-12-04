@@ -4,6 +4,7 @@ import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 public class MakeAppointment extends JFrame
 {
@@ -17,4 +18,7 @@ public class MakeAppointment extends JFrame
         label.setFont(new Font("Arial", Font.BOLD, 50));
 
 	}
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(MakeAppointment::new);
+    }
 }
