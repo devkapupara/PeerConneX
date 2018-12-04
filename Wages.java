@@ -1,11 +1,9 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.HashMap;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
@@ -33,7 +31,7 @@ public class Wages extends JFrame
         add(new Results(theWages, headers, false), "Center");
 
         getContentPane().setBackground(background);
-        setSize(600,600);
+        setSize(700,700);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocation(900, 200);
         setVisible(true);

@@ -64,10 +64,10 @@ public class Reviews extends JFrame {
         add(filler, "East");
         add(filler, "West");
         add(buttonPanel, "South", SwingUtilities.CENTER);
-        setSize(600,600);
+        setSize(1200,600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setBackground(background);
-        setLocation(900, 200);
+        setLocation(400, 200);
         setVisible(true);
     }
 
@@ -80,6 +80,7 @@ public class Reviews extends JFrame {
             label.setFont(label.getFont().deriveFont(35f));
             label.setForeground(foreground);
             JTable table = new JTable(reviews.size(), 1);
+            table.setFont(table.getFont().deriveFont(25f));
             table.setRowHeight(30);
             table.setForeground(foreground);
             table.setBackground(background);
@@ -130,6 +131,7 @@ public class Reviews extends JFrame {
         Statement stmt = null;
         ResultSet rs = null;
         try{
+        	
             //STEP 3: Open a connection
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
@@ -137,15 +139,12 @@ public class Reviews extends JFrame {
             stmt = conn.createStatement();
             String query = String.format("select tutee_id, date, rating, comment from reviews where tutor_id = '%s'", id);
             rs = stmt.executeQuery(query);
+            
             //STEP 5: Process the results
             while(rs.next()){
                 String review = "On " + rs.getString(2) + ", student " + rs.getInt(1) + " wrote: " + rs.getString(4) + " Rated " + rs.getInt(3) + "/5.";
                 reviews.add(review);
             }
-            for (String s : reviews) {
-                System.out.println(s);
-            }
-
         } catch(Exception e){
             //Handle errors for Class.forName
             e.printStackTrace();

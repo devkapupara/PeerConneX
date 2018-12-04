@@ -14,7 +14,7 @@ public class Results extends JPanel
         Color background = new Color(43,45,47);
         Color foreground = new Color(255,191,0);
         JLabel label = new JLabel("Results", SwingConstants.CENTER);
-        label.setFont(label.getFont().deriveFont(35f));
+        label.setFont(label.getFont().deriveFont(40f));
         label.setForeground(foreground);
         JTable table = new JTable(ratings.size(), 2);
         table.setRowHeight(30);
@@ -22,8 +22,8 @@ public class Results extends JPanel
         table.setBackground(background);
         table.setDefaultEditor(Object.class, null);
         JTableHeader jth = table.getTableHeader();
-        jth.setFont(jth.getFont().deriveFont(20f));
-        table.setFont(table.getFont().deriveFont(15f));
+        jth.setFont(jth.getFont().deriveFont(30f));
+        table.setFont(table.getFont().deriveFont(25f));
         jth.setBackground(background);
         jth.setForeground(foreground);
         table.setFillsViewportHeight(true);
@@ -34,7 +34,7 @@ public class Results extends JPanel
         			JTable target = (JTable)e.getSource();
         			int row = target.getSelectedRow();
         			System.out.println(table.getValueAt(row,0));
-        			JPanel data = new TutorSchedule((String)table.getValueAt(row,0), ratings);
+        			JPanel data = new TutorSchedule((String)table.getValueAt(row,0), ratings);        				
         			removeAll();
         			add(data);
         			repaint();

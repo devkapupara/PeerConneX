@@ -63,7 +63,7 @@ public class findTutor extends JFrame
         add(filler, "East");
         add(filler, "West");
         add(buttonPanel, "South", SwingUtilities.CENTER);
-        setSize(600,600);
+        setSize(700,700);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocation(900, 200);
         getContentPane().setBackground(background);

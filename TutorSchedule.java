@@ -53,6 +53,7 @@ public class TutorSchedule extends JPanel
         StringBuilder sb = new StringBuilder("<html>" + name + "'s Schedule: <br>");
         int out;
         try{
+        	
             //STEP 3: Open a connection
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
@@ -63,10 +64,12 @@ public class TutorSchedule extends JPanel
             out = cs.getInt(2);
 
             String query = String.format("Select day, start_time, end_time from tutor_schedule where id = % d", out);
+            
             //STEP 4: Execute a query
             stmt = conn.createStatement();
             rs = stmt.executeQuery(query);
             SimpleDateFormat df = new SimpleDateFormat("hh:mm a");
+            
             //STEP 5: Process the results
             while(rs.next()){
                 String day = rs.getString(1);
@@ -74,6 +77,10 @@ public class TutorSchedule extends JPanel
                 String endTime = df.format(rs.getTime(3));
                 sb.append(String.format("%s from %s to %s.<br>", day, startTime, endTime));
             }
+//            if (rs == null)
+//            {
+//            	sb.append("This tutor is unavailable for this semester");
+//            }
         } catch(Exception e){
             //Handle errors for Class.forName
             e.printStackTrace();
