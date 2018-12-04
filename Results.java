@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class Results extends JPanel
 {
-    Results(HashMap<String, Double> ratings, String headers[])
+    Results(HashMap<String, Double> ratings, String headers[], boolean showSchedule)
     {
         Color background = new Color(43,45,47);
         Color foreground = new Color(255,191,0);
@@ -27,19 +27,21 @@ public class Results extends JPanel
         jth.setBackground(background);
         jth.setForeground(foreground);
         table.setFillsViewportHeight(true);
-        table.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                JTable target = (JTable)e.getSource();
-                int row = target.getSelectedRow();
-                System.out.println(table.getValueAt(row,0));
-                JPanel data = new TutorSchedule((String)table.getValueAt(row,0), ratings);
-                removeAll();
-                add(data);
-                repaint();
-                revalidate();
-            }
-        });
+        if (showSchedule)
+        {
+        	table.addMouseListener(new MouseAdapter() {
+        		public void mouseClicked(MouseEvent e) {
+        			JTable target = (JTable)e.getSource();
+        			int row = target.getSelectedRow();
+        			System.out.println(table.getValueAt(row,0));
+        			JPanel data = new TutorSchedule((String)table.getValueAt(row,0), ratings);
+        			removeAll();
+        			add(data);
+        			repaint();
+        			revalidate();
+        		}
+        	});
+        }
         DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         for (int i = 0; i < table.getModel().getColumnCount(); i++)

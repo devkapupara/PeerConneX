@@ -30,7 +30,7 @@ public class Wages extends JFrame
         
         HashMap<String, Double> theWages = getData();
         String[] headers = {"Name", "Wages"};
-        add(new Results(theWages, headers), "Center");
+        add(new Results(theWages, headers, false), "Center");
 
         getContentPane().setBackground(background);
         setSize(600,600);

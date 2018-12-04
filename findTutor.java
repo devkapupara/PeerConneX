@@ -48,7 +48,7 @@ public class findTutor extends JFrame
             remove(center);
             remove(buttonPanel);
             String[] headers = {"Name", "Rating"};
-            add(new Results(ratings, headers), "Center");
+            add(new Results(ratings, headers, true), "Center");
             repaint();
             validate();
         });

@@ -32,7 +32,7 @@ public class TutorSchedule extends JPanel
         String[] headers = {"Name", "Rating"};
         back.addActionListener(e -> {
             removeAll();
-            add(new Results(oldData, headers));
+            add(new Results(oldData, headers, true));
             repaint();
             revalidate();
         });
