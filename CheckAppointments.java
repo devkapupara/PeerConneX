@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import javax.swing.JButton;
@@ -26,94 +27,80 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 
-public class ContactInfo extends JFrame
-{
-	ContactInfo()
+public class CheckAppointments extends JFrame{
+
+	CheckAppointments()
 	{
 		Color background = new Color(43,45,47);
         Color foreground = new Color(255,191,0);
         setBackground(background);
         setForeground(foreground);
-                
-        JLabel label = new JLabel("Contact Information", SwingConstants.CENTER);
-        label.setForeground(foreground);
-        label.setBackground(background);
-        label.setFont(new Font("Arial", Font.BOLD, 50));
         
-        JLabel selectType = new JLabel("Are you looking for a tutor or tutee?", SwingConstants.CENTER);
-        selectType.setForeground(foreground);
-        selectType.setBackground(background);
-        selectType.setFont(new Font("Arial", Font.PLAIN, 35));
+		Calendar use = Calendar.getInstance();
+		int m = use.get(Calendar.MONTH);
+		int d = use.get(Calendar.DATE);
+		int y = use.get(Calendar.YEAR);
         
-        JButton tutorButton = new JButton("Tutor");
-        tutorButton.setFont(tutorButton.getFont().deriveFont(30f));
+		HashMap<String, String[]> info = getData(m, d, y);
+		JPanel center = new appointments(info,m,d,y);
+		add(center, "Center");
+		
+        JButton prev = new JButton("Previous");
+        prev.setFont(prev.getFont().deriveFont(30f));
+        prev.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int x = d - 1;
+				remove(center);
+				HashMap<String, String[]> info = getData(m, x, y);
+				add(new appointments(info,m,d,y), "Center");
+				repaint();
+				validate();
+			}
+        });
         
-        JButton tuteeButton = new JButton("Tutee");
-        tuteeButton.setFont(tuteeButton.getFont().deriveFont(30f));
+        JButton next = new JButton("Next");
+        next.setFont(next.getFont().deriveFont(30f));
         
         JPanel buttonPanel1 = new JPanel();
-        tutorButton.setPreferredSize(new Dimension(100, 50));
+        prev.setPreferredSize(new Dimension(155, 38));
         buttonPanel1.setBackground(background);
-        buttonPanel1.add(tutorButton);
-        tutorButton.setForeground(foreground);
-        tutorButton.setBackground(background);
-        tutorButton.setBorder(new MatteBorder(1, 1, 1, 1, foreground));
+        buttonPanel1.add(prev);
+        prev.setForeground(foreground);
+        prev.setBackground(background);
+        prev.setBorder(new MatteBorder(1, 1, 1, 1, foreground));
         
         JPanel buttonPanel2 = new JPanel();
-        tuteeButton.setPreferredSize(new Dimension(100, 50));
+        next.setPreferredSize(new Dimension(155, 38));
         buttonPanel2.setBackground(background);
-        buttonPanel1.add(tuteeButton);
-        tuteeButton.setForeground(foreground);
-        tuteeButton.setBackground(background);
-        tuteeButton.setBorder(new MatteBorder(1, 1, 1, 1, foreground));
+        buttonPanel1.add(next);
+        next.setForeground(foreground);
+        next.setBackground(background);
+        next.setBorder(new MatteBorder(1, 1, 1, 1, foreground));
         
-        JPanel center = new JPanel(new GridBagLayout());
-        center.setBackground(background);
+        JPanel low = new JPanel(new GridBagLayout());
+        low.setBackground(background);
         GridBagConstraints gc = new GridBagConstraints();
         gc.fill = GridBagConstraints.HORIZONTAL;
         gc.gridwidth = 2;
         gc.gridx = 1;
-        gc.gridy = 0;
-        center.add(selectType, gc);
-        gc.gridx = 1;
         gc.gridy = 2;
-        center.add(buttonPanel1, gc);
+        low.add(buttonPanel1, gc);
         gc.gridx = 3;
-        center.add(buttonPanel2, gc);
-                
-        setTitle("Contact Information");
-        setLayout(new BorderLayout(5,5));
-        add(label, "North");
-        add(center, "Center");
+        low.add(buttonPanel2, gc);
         
-        tutorButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				HashMap<String, String[]> info = getData("tutor");
-				remove(center);
-				add(new contact(info, "Tutors"), "Center");
-				repaint();
-				validate();
-			}
-        });
-
-        tuteeButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				HashMap<String, String[]> info = getData("tutee");
-				remove(center);
-				add(new contact(info, "Tutees"), "Center");
-				repaint();
-				validate();
-			}
-        });
+        setTitle("Check Appointments");
+        setLayout(new BorderLayout(5,5));
+        add(low, "South");
+        
         getContentPane().setBackground(background);
-        setSize(1200,600);
+        setSize(520,600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setLocation(300, 200);
+		setLocation(900, 200);
         setVisible(true);
 	}
 	
-	   private static HashMap<String, String[]> getData(String sub) {
-	        HashMap<String, String[]> contact = new HashMap<>();
+	   private static HashMap<String, String[]> getData(int m, int d, int y) {
+	        HashMap<String, String[]> app = new HashMap<>();
 
 	        //final String DB_URL = "jdbc:mysql://localhost:3306/project?useSSL=false";
 		    final String DB_URL = "jdbc:mysql://localhost:3306/peerconnectionproject";
@@ -130,7 +117,7 @@ public class ContactInfo extends JFrame
 
 	            //STEP 4: Execute a query
 	            stmt = conn.createStatement();
-	            String query = "select name, phone, email from " + sub;
+	            String query = "select date, tutee_ID, tutor_ID from appointments where date = " + y + "-" + m + "-" + d;
 	            rs = stmt.executeQuery(query);
 	            
 	            //STEP 5: Process the results
@@ -138,7 +125,7 @@ public class ContactInfo extends JFrame
 	            	String [] a = new String[2];
 	            	a[0] = rs.getString(2);
 	            	a[1] = rs.getString(3);
-	                contact.put(rs.getString(1), a);
+	                app.put(rs.getString(1), a);
 	            }
 	        } catch(Exception e){
 	            //Handle errors for Class.forName
@@ -162,14 +149,14 @@ public class ContactInfo extends JFrame
 	                se.printStackTrace();
 	            }//end finally try
 	        }//end try
-	        return contact;
+	        return app;
 	    }
 	   
-	private class contact extends JPanel {
-		contact(HashMap<String, String[]> info, String type) {
+	private class appointments extends JPanel {
+		appointments(HashMap<String, String[]> info, int m, int d, int y) {
 	          Color background = new Color(43,45,47);
 	          Color foreground = new Color(255,191,0);
-	          String resultsLabel = "Contact Information for " + type;
+	          String resultsLabel = "Appointments for " + m + "/" + d + "/" + y;
 	          JLabel label = new JLabel(resultsLabel, SwingConstants.CENTER);
 	          label.setFont(label.getFont().deriveFont(35f));
 	          label.setForeground(foreground);
@@ -191,7 +178,7 @@ public class ContactInfo extends JFrame
 	          table.setDefaultEditor(Object.class, null);
 	          DefaultTableCellRenderer renderer = new DefaultTableCellRenderer();
 	          renderer.setHorizontalAlignment(SwingConstants.CENTER);
-	          String headers[] = {"Name", "Phone", "Email"};
+	          String headers[] = {"Date", "Tutee", "Tutor"};
 	          for (int i = 0; i < 3; i++)
 	          {
 	              TableColumn tc = table.getTableHeader().getColumnModel().getColumn(i);
@@ -226,6 +213,6 @@ public class ContactInfo extends JFrame
 	  }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(ContactInfo::new);
+        SwingUtilities.invokeLater(CheckAppointments::new);
     }
 }
