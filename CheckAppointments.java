@@ -111,7 +111,6 @@ public class CheckAppointments extends JFrame{
 		setLocation(900, 200);
         setVisible(true);
 	}
-	
 	   private static HashMap<String, String[]> getData(int m, int d, int y) {
 	        HashMap<String, String[]> app = new HashMap<>();
 
@@ -224,7 +223,6 @@ public class CheckAppointments extends JFrame{
 	          setVisible(true);
 	      }
 	  }
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(CheckAppointments::new);
     }
