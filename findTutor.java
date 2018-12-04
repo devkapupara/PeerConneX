@@ -14,14 +14,13 @@ public class findTutor extends JFrame
 
         String[] subjects = {"Math", "Computer Science", "Physics", "Chemistry", "Biology", "Business", "Graphic Design"};
         JComboBox<String> dropdown = new JComboBox<>(subjects);
-        dropdown.setFont(dropdown.getFont().deriveFont(30f));
 
         JLabel label = new JLabel("Find Tutor", SwingConstants.CENTER);
         label.setFont(new Font("Arial", Font.BOLD, 50));
         label.setForeground(foreground);
         JLabel searchLabel = new JLabel("Select subject: ");
         searchLabel.setForeground(foreground);
-        searchLabel.setFont(searchLabel.getFont().deriveFont(30f));
+        searchLabel.setFont(searchLabel.getFont().deriveFont(20f));
 
         JPanel center = new JPanel(new GridBagLayout());
         center.setBackground(background);
@@ -33,21 +32,21 @@ public class findTutor extends JFrame
         gc.weightx = 1;
         center.add(dropdown);
         JButton findButton = new JButton("  Find  ");
-        findButton.setFont(findButton.getFont().deriveFont(30f));
         JPanel buttonPanel = new JPanel();
-        findButton.setPreferredSize(new Dimension(100, 50));
+        buttonPanel.setSize(100, findButton.getHeight());
         buttonPanel.setBackground(background);
         buttonPanel.add(findButton);
         findButton.setForeground(foreground);
+        findButton.setFont(findButton.getFont().deriveFont(20f));
         findButton.setBackground(background);
         findButton.setBorder(new MatteBorder(1,1,1,1, foreground));
+        findButton.setSize(300,50);
         findButton.addActionListener(e -> {
             subject = (String)dropdown.getSelectedItem();
             HashMap<String, Double> ratings = getData(subject);
             remove(center);
             remove(buttonPanel);
-            String[] headers = {"Name", "Rating"};
-            add(new Results(ratings, headers), "Center");
+            add(new Results(ratings), "Center");
             repaint();
             validate();
         });
@@ -62,8 +61,7 @@ public class findTutor extends JFrame
         add(filler, "East");
         add(filler, "West");
         add(buttonPanel, "South", SwingUtilities.CENTER);
-        setSize(600,600);
-		setLocation(900, 200);
+        setSize(500,500);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         getContentPane().setBackground(background);
         setVisible(true);
@@ -72,11 +70,10 @@ public class findTutor extends JFrame
     private static HashMap<String, Double> getData(String sub) {
         HashMap<String, Double> ratings = new HashMap<>();
 
-        //final String DB_URL = "jdbc:mysql://localhost:3306/project?useSSL=false";
-	    final String DB_URL = "jdbc:mysql://localhost:3306/peerconnectionproject";
-        
-        final String USER = "root";
-        final String PASS = "";
+        final String DB_URL = "jdbc:mysql://localhost:3306/project?useSSL=false";
+
+        final String USER = "dev";
+        final String PASS = "dev2511996";
 
         Connection conn = null;
         Statement stmt = null;
@@ -87,7 +84,7 @@ public class findTutor extends JFrame
 
             //STEP 4: Execute a query
             stmt = conn.createStatement();
-            String query = String.format("select name, avg_rating from findtutor where subject = '%s'", sub);
+            String query = String.format("select name, avg_rating, subject from findtutor where subject = '%s'", sub);
             rs = stmt.executeQuery(query);
             //STEP 5: Process the results
             while(rs.next()){
@@ -115,6 +112,7 @@ public class findTutor extends JFrame
                 se.printStackTrace();
             }//end finally try
         }//end try
+        System.out.println("Goodbye!");
 
         return ratings;
     }
