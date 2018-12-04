@@ -118,7 +118,7 @@ public class CheckAppointments extends JFrame{
 		    final String DB_URL = "jdbc:mysql://localhost:3306/peerconnectionproject";
 
 	        final String USER = "root";
-	        final String PASS = "";
+	        final String PASS = "learnwiththi2YES";
 
 	        Connection conn = null;
 	        Statement stmt = null;
