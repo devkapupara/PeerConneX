@@ -28,7 +28,6 @@ public class TutorSchedule extends JPanel
         back.setFont(back.getFont().deriveFont(20f));
         back.setBackground(background);
         back.setBorder(new MatteBorder(1,1,1,1, foreground));
-        //back.setSize(300,50);
         String[] headers = {"Name", "Rating"};
         back.addActionListener(e -> {
             removeAll();

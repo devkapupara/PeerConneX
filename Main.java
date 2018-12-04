@@ -80,6 +80,13 @@ public class Main
 		checkAppointments.setBackground(background);
 		checkAppointments.setForeground(foreground);
 		checkAppointments.setFont(buttonFont);
+		checkAppointments.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
+				new CheckAppointments();
+			}
+		});
 		Button cancelAppointments = new Button("Cancel Appointments");
 		cancelAppointments.setBackground(background);
 		cancelAppointments.setForeground(foreground);

@@ -28,12 +28,7 @@ public class Reviews extends JFrame {
 
         JPanel center = new JPanel(new GridBagLayout());
         center.setBackground(background);
-        GridBagConstraints gc = new GridBagConstraints();
-        gc.gridx = 0;
-        gc.gridy = 0;
         center.add(searchID);
-        gc.gridx = 0;
-        gc.weightx = 1;
         center.add(entry);
         JButton showReviewsButton = new JButton("Show Reviews");
         showReviewsButton.setFont(showReviewsButton.getFont().deriveFont(30f));
@@ -55,14 +50,10 @@ public class Reviews extends JFrame {
             validate();
         });
 
-        JPanel filler = new JPanel();
-        filler.setBackground(background);
         setTitle("Reviews");
         setLayout(new BorderLayout(5,5));
         add(center, "Center");
         add(label, "North");
-        add(filler, "East");
-        add(filler, "West");
         add(buttonPanel, "South", SwingUtilities.CENTER);
         setSize(1200,600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

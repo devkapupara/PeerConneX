@@ -25,12 +25,7 @@ public class findTutor extends JFrame
 
         JPanel center = new JPanel(new GridBagLayout());
         center.setBackground(background);
-        GridBagConstraints gc = new GridBagConstraints();
-        gc.gridx = 0;
-        gc.gridy = 0;
         center.add(searchLabel);
-        gc.gridx = 1;
-        gc.weightx = 1;
         center.add(dropdown);
         JButton findButton = new JButton("  Find  ");
         JPanel buttonPanel = new JPanel();
@@ -53,15 +48,10 @@ public class findTutor extends JFrame
             validate();
         });
 
-        JPanel filler = new JPanel();
-        filler.setBackground(background);
-
         setTitle("Find Tutor");
         setLayout(new BorderLayout(5,5));
         add(center, "Center");
         add(label, "North");
-        add(filler, "East");
-        add(filler, "West");
         add(buttonPanel, "South", SwingUtilities.CENTER);
         setSize(700,700);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
