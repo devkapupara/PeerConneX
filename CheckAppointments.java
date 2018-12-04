@@ -1,7 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -47,16 +46,6 @@ public class CheckAppointments extends JFrame{
 		
         JButton prev = new JButton("Previous");
         prev.setFont(prev.getFont().deriveFont(30f));
-        prev.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int x = d - 1;
-				remove(center);
-				HashMap<String, String[]> info = getData(m, x, y);
-				add(new appointments(info,m,d,y), "Center");
-				repaint();
-				validate();
-			}
-        });
         
         JButton next = new JButton("Next");
         next.setFont(next.getFont().deriveFont(30f));
@@ -92,6 +81,30 @@ public class CheckAppointments extends JFrame{
         setLayout(new BorderLayout(5,5));
         add(low, "South");
         
+        prev.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int x = d - 1;
+				remove(center);
+				remove(low);
+				HashMap<String, String[]> info = getData(m, x, y);
+				add(new appointments(info,m,x,y), "Center");
+				repaint();
+				validate();
+			}
+        });
+        
+        next.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int x = d + 1;
+				remove(center);
+				remove(low);
+				HashMap<String, String[]> info = getData(m, x, y);
+				add(new appointments(info,m,x,y), "Center");
+				repaint();
+				validate();
+			}
+        });
+        
         getContentPane().setBackground(background);
         setSize(520,600);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -106,7 +119,7 @@ public class CheckAppointments extends JFrame{
 		    final String DB_URL = "jdbc:mysql://localhost:3306/peerconnectionproject";
 
 	        final String USER = "root";
-	        final String PASS = "";
+	        final String PASS = "learnwiththi2YES";
 
 	        Connection conn = null;
 	        Statement stmt = null;
