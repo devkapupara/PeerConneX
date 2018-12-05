@@ -19,13 +19,6 @@ public class TutorSchedule extends JPanel
         setBackground(background);
         add(label, "Center");
         
-        if (getData(name) == null)
-        {
-        	System.out.println("YES");
-        	label.setText("The tutor is not available this semester.");
-        }
-        add(label, "Center");
-        
         JButton back = new JButton("  Back  ");
         JPanel buttonPanel = new JPanel();
         buttonPanel.setPreferredSize(new Dimension(100, 100));

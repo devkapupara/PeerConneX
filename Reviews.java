@@ -48,7 +48,7 @@ public class Reviews extends JFrame {
             if (reviews.isEmpty())
             {
                 JLabel aLabel = new JLabel("There are no reviews available for this tutor or this tutor does not exist.", SwingConstants.CENTER);
-                aLabel.setFont(label.getFont().deriveFont(20f));
+                aLabel.setFont(aLabel.getFont().deriveFont(20f));
                 aLabel.setForeground(foreground);
                 aLabel.setBackground(background);
                 add(aLabel, "Center");

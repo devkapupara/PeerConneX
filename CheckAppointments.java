@@ -44,14 +44,27 @@ public class CheckAppointments extends JFrame{
 		JPanel center = new appointments(info,m,d,y);
 		add(center, "Center");
 		
+		
         JButton prev = new JButton("Previous");
         prev.setFont(prev.getFont().deriveFont(30f));
         prev.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int x = d - 1;
-				remove(center);
 				HashMap<String, String[]> info = getData(m, x, y);
-				add(new appointments(info,m,d,y), "Center");
+				remove(center);
+				if (info.isEmpty())
+				{
+					String text = "There are no appointments on " + m + "/" + x + "/" + y;
+		            JLabel aLabel = new JLabel(text, SwingConstants.CENTER);
+		            aLabel.setFont(aLabel.getFont().deriveFont(20f));
+		            aLabel.setForeground(foreground);
+		            aLabel.setBackground(background);
+		            add(aLabel, "Center");
+				}
+				else
+				{
+					add(new appointments(info,m,x,y), "Center");
+				}
 				repaint();
 				validate();
 			}
@@ -59,6 +72,28 @@ public class CheckAppointments extends JFrame{
         
         JButton next = new JButton("Next");
         next.setFont(next.getFont().deriveFont(30f));
+        next.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int x = d + 1;
+				HashMap<String, String[]> info = getData(m, x, y);
+				remove(center);
+				if (info.isEmpty())
+				{
+					String text = "There are no appointments on " + m + "/" + x + "/" + y;
+		            JLabel aLabel = new JLabel(text, SwingConstants.CENTER);
+		            aLabel.setFont(aLabel.getFont().deriveFont(20f));
+		            aLabel.setForeground(foreground);
+		            aLabel.setBackground(background);
+		            add(aLabel, "Center");
+				}
+				else
+				{
+					add(new appointments(info,m,x,y), "Center");
+				}
+				repaint();
+				validate();
+			}
+        });
         
         JPanel buttonPanel1 = new JPanel();
         prev.setPreferredSize(new Dimension(155, 38));
