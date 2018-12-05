@@ -45,7 +45,18 @@ public class Reviews extends JFrame {
             ArrayList<String> reviews = getData(tID);
             remove(center);
             remove(buttonPanel);
-            add(new SearchResults(reviews), "Center");
+            if (reviews.isEmpty())
+            {
+                JLabel aLabel = new JLabel("There are no reviews available for this tutor or this tutor does not exist.", SwingConstants.CENTER);
+                aLabel.setFont(label.getFont().deriveFont(20f));
+                aLabel.setForeground(foreground);
+                aLabel.setBackground(background);
+                add(aLabel, "Center");
+            }
+            else
+            {
+                add(new SearchResults(reviews), "Center");
+            }
             repaint();
             validate();
         });
@@ -158,7 +169,6 @@ public class Reviews extends JFrame {
                 se.printStackTrace();
             }//end finally try
         }//end try
-
         return reviews;
     }
 
